@@ -1,10 +1,11 @@
-<h2 mat-dialog-title>Inserir Título</h2>
-<mat-dialog-content>
+<h2 mat-dialog-title>Add appointment</h2>
+<div mat-dialog-content>
   <mat-form-field>
-    <input matInput placeholder="Título do compromisso" [(ngModel)]="titulo" required>
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="data.title" placeholder="Type the subject.">
   </mat-form-field>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button (click)="onOkClick()">OK</button>
-  <button mat-button (click)="onCancelClick()">Cancelar</button>
-</mat-dialog-actions>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button color="primary" (click)="onSaveClick()">Save</button>
+</div>

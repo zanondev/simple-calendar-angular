@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-form-dialog',
@@ -7,20 +7,20 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./form-dialog.component.css']
 })
 export class FormDialogComponent {
-  titulo!: string;
 
   constructor(
     public dialogRef: MatDialogRef<FormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { date: Date }
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  onOkClick(): void {
-    this.dialogRef.close(this.titulo);
+  onSaveClick(): void {
+    // Lógica para salvar o título do compromisso
+    // Pode ser uma chamada a um serviço ou manipulação local dos dados
+    this.dialogRef.close(this.data.title);
   }
 
   onCancelClick(): void {
     this.dialogRef.close();
   }
 
-  
 }

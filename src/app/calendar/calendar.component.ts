@@ -13,58 +13,37 @@ interface Appointment {
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent {
-  selectedDate: Date | null = null;
-  appointments: Appointment[] = [];
-  titulo: string = '';
-  isFormVisible = false;
+  selectedDate?: Date;
+  time: string[];
+  appointments: { [key: string]: string } = {};
+  displayedColumns: string[] = ['horario', 'compromisso'];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {
+    this.time = [];
+  }
 
-  onDateSelected(event: any): void {
-    this.selectedDate = event.value;
-    this.isFormVisible = true;
-    if (this.selectedDate !== null) {
-      this.openDialog();
+  onDateSelected(date: Date) {
+    this.time = [];
+
+    for (let i = 1; i <= 24; i++) {
+      this.time.push(i + 'am');
     }
   }
 
-  onDeleteSelected(): void {
-    this.selectedDate = null;
-  }
-
-  onAddAppointment(title: string): void {
-    if (this.selectedDate) {
-      const appointment: Appointment = {
-        date: this.selectedDate,
-        title: this.titulo
-      };
-      this.appointments.push(appointment);
-      this.titulo = '';
-      this.selectedDate = null;
-      this.isFormVisible = false;
-    }
-  }
-
-  dateClass = (date: Date): string => {
-    const appointment = this.getAppointment(date);
-    return appointment ? 'has-appointment' : '';
-  };
-
-  public getAppointment(date: Date): Appointment | undefined {
-    return this.appointments.find(a => a.date.toDateString() === date.toDateString());
-  }
-
-  openDialog(): void {
+  openFormDialog(horario: string) {
     const dialogRef = this.dialog.open(FormDialogComponent, {
-      width: '300px',
-      data: { date: this.selectedDate },
+      width: '250px',
+      data: { title: this.appointments[horario] || '' }
     });
-
+  
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.titulo = result;
-        this.onAddAppointment(result);
+        this.appointments[horario] = result;
       }
     });
+  }
+
+  removeAppointment(horario: string) {
+    delete this.appointments[horario];
   }
 }

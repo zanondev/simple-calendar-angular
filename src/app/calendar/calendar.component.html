@@ -1,7 +1,28 @@
-<mat-calendar
-  [selected]="selectedDate"
-  (selectedChange)="onDateSelected($event)"
-  [dateClass]="dateClass"
->
-</mat-calendar>
+<mat-card class="demo-inline-calendar-card">
+  <mat-calendar [(selected)]="selectedDate" (selectedChange)="onDateSelected($event)"></mat-calendar>
+</mat-card>
 
+<div *ngIf="selectedDate" class="horarios">
+  <table mat-table [dataSource]="time" class="mat-elevation-z8">
+    <ng-container matColumnDef="horario" class="horario">
+      <th mat-header-cell *matHeaderCellDef>Horário</th>
+      <td mat-cell *matCellDef="let horario" class="hoverable">{{ horario }}</td>
+    </ng-container>
+    <ng-container matColumnDef="compromisso">
+      <th mat-header-cell *matHeaderCellDef>Compromisso</th>
+      <td mat-cell *matCellDef="let horario" class="hoverable">
+        <span class="compromisso hoverable" *ngIf="appointments[horario]">
+          {{ appointments[horario] }}
+          <button mat-icon-button color="primary" (click)="removeAppointment(horario)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </span>
+        <button mat-icon-button color="primary" *ngIf="!appointments[horario]" (click)="openFormDialog(horario)">
+          <mat-icon>add</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
