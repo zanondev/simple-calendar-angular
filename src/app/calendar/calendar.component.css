@@ -10,3 +10,13 @@
 .mat-column-hour {
   width: 1%;
 }
+
+.actions-cell {
+  width: 1%;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.actions-cell button {
+  margin-right: 8px;
+}

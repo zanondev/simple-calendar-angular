@@ -17,7 +17,7 @@ export class CalendarComponent {
   selectedDate?: Date;
   time: string[];
   appointments: Appointment[] = [];
-  displayedColumns: string[] = ['hour', 'appointment'];
+  displayedColumns: string[] = ['hour', 'actions', 'appointment'];
 
   constructor(public dialog: MatDialog) {
     this.time = [];
