@@ -14,7 +14,7 @@ export class FormDialogComponent {
   ) {}
 
   onSaveClick(): void {
-    // Lógica para salvar o título do compromisso
+    // Lógica para salvar o título do appointment
     // Pode ser uma chamada a um serviço ou manipulação local dos dados
     this.dialogRef.close(this.data.title);
   }

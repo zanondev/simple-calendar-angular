@@ -16,7 +16,7 @@ export class CalendarComponent {
   selectedDate?: Date;
   time: string[];
   appointments: { [key: string]: string } = {};
-  displayedColumns: string[] = ['horario', 'compromisso'];
+  displayedColumns: string[] = ['hour', 'appointment'];
 
   constructor(public dialog: MatDialog) {
     this.time = [];
@@ -30,20 +30,20 @@ export class CalendarComponent {
     }
   }
 
-  openFormDialog(horario: string) {
+  openFormDialog(hour: string) {
     const dialogRef = this.dialog.open(FormDialogComponent, {
       width: '250px',
-      data: { title: this.appointments[horario] || '' }
+      data: { title: this.appointments[hour] || '' }
     });
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.appointments[horario] = result;
+        this.appointments[hour] = result;
       }
     });
   }
 
-  removeAppointment(horario: string) {
-    delete this.appointments[horario];
+  removeAppointment(hour: string) {
+    delete this.appointments[hour];
   }
 }

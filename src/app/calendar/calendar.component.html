@@ -2,22 +2,22 @@
   <mat-calendar [(selected)]="selectedDate" (selectedChange)="onDateSelected($event)"></mat-calendar>
 </mat-card>
 
-<div *ngIf="selectedDate" class="horarios">
+<div *ngIf="selectedDate" class="hours">
   <table mat-table [dataSource]="time" class="mat-elevation-z8">
-    <ng-container matColumnDef="horario" class="horario">
-      <th mat-header-cell *matHeaderCellDef>Horário</th>
-      <td mat-cell *matCellDef="let horario" class="hoverable">{{ horario }}</td>
+    <ng-container matColumnDef="hour" class="hour">
+      <th mat-header-cell *matHeaderCellDef>hour</th>
+      <td mat-cell *matCellDef="let hour" class="hoverable">{{ hour }}</td>
     </ng-container>
-    <ng-container matColumnDef="compromisso">
-      <th mat-header-cell *matHeaderCellDef>Compromisso</th>
-      <td mat-cell *matCellDef="let horario" class="hoverable">
-        <span class="compromisso hoverable" *ngIf="appointments[horario]">
-          {{ appointments[horario] }}
-          <button mat-icon-button color="primary" (click)="removeAppointment(horario)">
+    <ng-container matColumnDef="appointment">
+      <th mat-header-cell *matHeaderCellDef>appointment</th>
+      <td mat-cell *matCellDef="let hour" class="hoverable">
+        <span class="appointment hoverable" *ngIf="appointments[hour]">
+          {{ appointments[hour] }}
+          <button mat-icon-button color="primary" (click)="removeAppointment(hour)">
             <mat-icon>close</mat-icon>
           </button>
         </span>
-        <button mat-icon-button color="primary" *ngIf="!appointments[horario]" (click)="openFormDialog(horario)">
+        <button mat-icon-button color="primary" *ngIf="!appointments[hour]" (click)="openFormDialog(hour)">
           <mat-icon>add</mat-icon>
         </button>
       </td>
