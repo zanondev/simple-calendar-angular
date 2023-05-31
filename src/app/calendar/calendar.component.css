@@ -20,3 +20,9 @@
 .actions-cell button {
   margin-right: 8px;
 }
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+}
