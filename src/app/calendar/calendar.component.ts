@@ -4,6 +4,7 @@ import { FormDialogComponent } from '../form-dialog/form-dialog.component';
 
 interface Appointment {
   date: Date;
+  hour: number;
   title: string;
 }
 
@@ -15,7 +16,7 @@ interface Appointment {
 export class CalendarComponent {
   selectedDate?: Date;
   time: string[];
-  appointments: { [key: string]: string } = {};
+  appointments: Appointment[] = [];
   displayedColumns: string[] = ['hour', 'appointment'];
 
   constructor(public dialog: MatDialog) {
@@ -23,6 +24,7 @@ export class CalendarComponent {
   }
 
   onDateSelected(date: Date) {
+    this.selectedDate = date;
     this.time = [];
 
     for (let i = 1; i <= 24; i++) {
@@ -33,17 +35,38 @@ export class CalendarComponent {
   openFormDialog(hour: string) {
     const dialogRef = this.dialog.open(FormDialogComponent, {
       width: '250px',
-      data: { title: this.appointments[hour] || '' }
+      data: { title: this.getAppointmentForHour(hour)?.title || '' }
     });
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.appointments[hour] = result;
+        const appointment: Appointment = {
+          date: this.selectedDate!,
+          hour: parseInt(hour),
+          title: result
+        };
+        this.appointments.push(appointment);
       }
     });
   }
 
   removeAppointment(hour: string) {
-    delete this.appointments[hour];
+    const appointmentIndex = this.appointments.findIndex(a =>
+      a.date.toDateString() === this.selectedDate!.toDateString() && a.hour === parseInt(hour)
+    );
+    
+    if (appointmentIndex > -1) {
+      this.appointments.splice(appointmentIndex, 1);
+    }
+  }
+
+  getAppointmentForHour(hour: string): Appointment | undefined {
+    return this.appointments.find(a =>
+      a.date.toDateString() === this.selectedDate!.toDateString() && a.hour === parseInt(hour)
+    );
+  }
+
+  getAppointmentsForSelectedDate(): Appointment[] {
+    return this.appointments.filter(a => a.date.toDateString() === this.selectedDate!.toDateString());
   }
 }
