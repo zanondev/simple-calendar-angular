@@ -27,8 +27,13 @@ export class CalendarComponent {
     this.selectedDate = date;
     this.time = [];
 
-    for (let i = 1; i <= 24; i++) {
+    for (let i = 0; i <= 23; i++) {
+      if (i == 0)
+      this.time.push('00am');
+      if (i > 0 && i < 12)
       this.time.push(i + 'am');
+      if (i >= 12)
+      this.time.push(i + 'pm');
     }
   }
 
